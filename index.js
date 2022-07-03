@@ -1,4 +1,5 @@
 import BoardController from "./BoardController.js";
+import BoardGenarator from "./BoardGenarator.js";
 
 const testGameBoard = [
   [1, 2, 3],
@@ -6,9 +7,12 @@ const testGameBoard = [
   [7, 8, 0],
 ];
 
-const testingBoardController = new BoardController(testGameBoard);
+const boardGenarator = new BoardGenarator();
+const testingBoardController = new BoardController(
+  boardGenarator.GenarateBoard(3, 3)
+);
 
-console.log(testGameBoard);
+console.log(testingBoardController.gameboard);
 
 const buttons = [
   document.getElementById("1"),
@@ -24,6 +28,6 @@ const buttons = [
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", () => {
     console.log(testingBoardController.TryMove(i + 1));
-    console.log(testGameBoard);
+    console.log(testingBoardController.gameboard);
   });
 }
