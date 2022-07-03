@@ -4,8 +4,8 @@ export default class BoardController {
   }
 
   IsValidSlot(column, row) {
-    if (row < this.gameboard.length && row > 0) {
-      if (column < this.gameboard[row].length && column > 0) {
+    if (row < this.gameboard.length && row >= 0) {
+      if (column < this.gameboard[row].length && column >= 0) {
         return this.gameboard[row][column] == 0;
       }
     }
