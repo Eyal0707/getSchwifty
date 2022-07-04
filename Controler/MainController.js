@@ -1,10 +1,11 @@
 export default class MainController {
-  constructor(boardController, BoardGenarator, winDetector, view) {
+  constructor(boardController, BoardGenarator, WinHandler, view) {
     this.boardController = boardController;
     this.BoardGenarator = BoardGenarator;
-    this.winDetector = winDetector;
+    this.WinHandler = WinHandler;
     this.view = view;
     this.board;
+    this.gameData;
     this.#InitiateBoard(3, 3);
   }
 
@@ -14,8 +15,16 @@ export default class MainController {
     widthInput.value = defaultWidth;
     heightInput.value = defaultHeight;
 
-    this.GenarateBoard(defaultWidth, defaultHeight);
+    this.GenerateBoard(defaultWidth, defaultHeight);
     this.#AddEventListenerForSizeInputs(widthInput, heightInput);
+    this.#AddEventListenerForGenerate(widthInput, heightInput);
+  }
+
+  #AddEventListenerForGenerate(widthInput, heightInput) {
+    const generator = this.view.GetGeneratorButton();
+    generator.addEventListener("click", () => {
+      this.GenerateBoard(widthInput.value, heightInput.value);
+    });
   }
 
   #AddEventListenersForCards(cards) {
@@ -28,16 +37,16 @@ export default class MainController {
 
   #AddEventListenerForSizeInputs(widthInput, heightInput) {
     widthInput.addEventListener("change", (e) => {
-      this.GenarateBoard(e.target.value, heightInput.value);
+      this.GenerateBoard(e.target.value, heightInput.value);
     });
     heightInput.addEventListener("change", (e) => {
-      this.GenarateBoard(widthInput.value, e.target.value);
+      this.GenerateBoard(widthInput.value, e.target.value);
     });
   }
 
-  GenarateBoard(width, height) {
+  GenerateBoard(width, height) {
     if (width > 1 && height > 1) {
-      this.board = this.BoardGenarator.GenarateBoard(width, height);
+      this.board = this.BoardGenarator.GenerateBoard(width, height);
       const cards = this.view.BuildBoard(width, height, this.board);
       this.#AddEventListenersForCards(cards);
     }
@@ -48,7 +57,7 @@ export default class MainController {
       this.view.MoveFailed(this.board, number);
     } else {
       this.view.UpdateBoard(this.board);
-      if (this.winDetector.IsWin(this.board)) {
+      if (this.WinHandler.IsWin(this.board)) {
         this.view.Win();
       }
     }

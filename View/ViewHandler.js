@@ -1,7 +1,9 @@
 export default class ViewHandler {
-  constructor(boardMaker) {
+  constructor(boardMaker, container, alerter) {
     this.boardMaker = boardMaker;
     this.cards = [];
+    this.container = container;
+    this.alerter = alerter;
   }
 
   #MakeCards(width, height) {
@@ -27,11 +29,17 @@ export default class ViewHandler {
     return document.getElementById("height-input");
   }
 
+  GetGeneratorButton() {
+    return document.getElementById("generator");
+  }
+
   UpdateBoard(board) {
     this.boardMaker.UpdateBoard(board, this.cards);
   }
 
   BuildBoard(width, height, board) {
+    this.container.style.borderWidth = "2px";
+    this.alerter.innerHTML = "";
     this.#MakeCards(width, height);
     this.boardMaker.BuildBoard(board, this.cards);
     return this.cards;
@@ -42,6 +50,7 @@ export default class ViewHandler {
   }
 
   Win() {
-    console.log;
+    this.container.style.borderWidth = "50px";
+    this.alerter.innerHTML = "You Won! click Regenerate To Continue";
   }
 }

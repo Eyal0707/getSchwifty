@@ -40,7 +40,7 @@ export default class BoardGenarator {
     return flipCount % 2 === 0;
   }
 
-  GenarateBoard(rows, columns) {
+  GenerateBoard(rows, columns) {
     //separate to diffrent functions
     do {
       length = rows * columns;
