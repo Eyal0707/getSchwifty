@@ -27,7 +27,7 @@ export default class ScoreBoard {
         this.highestScores.pop();
       }
     }
-    this.saver.SaveObject({ scores: this.highestScores });
+    this.saver.SaveObject("scores", this.highestScores);
     console.log(this.highestScores);
   }
 }
