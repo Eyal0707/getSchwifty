@@ -19,6 +19,18 @@ export default class ViewHandler {
     }
   }
 
+  GetWidthInput() {
+    return document.getElementById("width-input");
+  }
+
+  GetHeightInput() {
+    return document.getElementById("height-input");
+  }
+
+  UpdateBoard(board) {
+    this.boardMaker.UpdateBoard(board, this.cards);
+  }
+
   BuildBoard(width, height, board) {
     this.#MakeCards(width, height);
     this.boardMaker.BuildBoard(board, this.cards);

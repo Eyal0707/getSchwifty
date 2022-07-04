@@ -13,8 +13,8 @@ body{
 }
 
 #board-container{
-    width: 500px;
-    height: 500px;
+    width: 700px;
+    height: 700px;
     border: solid 2px orangered;
     background-color: black;
 
@@ -23,5 +23,36 @@ body{
 .card{
     background-color: beige;
     border: grey;
-
+    border-radius: 10px;
 }
+
+.size-changing{
+    margin-top: 10px;
+    padding: 10px;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px orangered;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.input-field{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px 20px;
+}
+
+.input-field label{
+    color: white;
+}
+
+.input-field input {
+    background-color: beige;
+    border: solid 2px white;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+

@@ -27,12 +27,13 @@ export default class BoardController {
 
   TryMove(board, number) {
     for (let row = 0; row < board.length; row++) {
-      for (let column = 0; column < board.length; column++) {
+      for (let column = 0; column < board[row].length; column++) {
         if (board[row][column] == number) {
           return this.TryMoveWithCoords(board, column, row);
         }
       }
     }
+    console.warn(board);
     return false;
   }
 }

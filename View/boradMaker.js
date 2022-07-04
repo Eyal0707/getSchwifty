@@ -12,6 +12,7 @@ export default class BoardMaker {
   }
 
   BuildBoard(board, cards) {
+    this.container.innerHTML = "";
     board.forEach((row) => {
       row.forEach((element) => {
         cards[element] = this.#StyleCard(
