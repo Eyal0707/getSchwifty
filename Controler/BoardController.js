@@ -1,16 +1,8 @@
 export default class BoardController {
-  constructor(gameboard) {
+  constructor(gameboard, movmentValidator, movmentOptions) {
     this.gameboard = gameboard;
-  }
-
-  IsValidSlot(column, row) {
-    //move to diffarent class
-    if (row < this.gameboard.length && row >= 0) {
-      if (column < this.gameboard[row].length && column >= 0) {
-        return this.gameboard[row][column] == 0;
-      }
-    }
-    return false;
+    this.validator = movmentValidator;
+    this.movmentOptions = movmentOptions;
   }
 
   Move(originColumn, originRow, destColumn, destRow) {
@@ -21,27 +13,19 @@ export default class BoardController {
   }
 
   TryMoveWithCoords(column, row) {
-    //just change it
-    if (this.gameboard[row][column] > 0) {
-      if (this.IsValidSlot(column + 1, row)) {
-        this.Move(column, row, column + 1, row);
-        return true;
-      } else if (this.IsValidSlot(column - 1, row)) {
-        this.Move(column, row, column - 1, row);
-        return true;
-      } else if (this.IsValidSlot(column, row + 1)) {
-        this.Move(column, row, column, row + 1);
-        return true;
-      } else if (this.IsValidSlot(column, row - 1)) {
-        this.Move(column, row, column, row - 1);
-        return true;
+    let canMove = false;
+    this.movmentOptions.forEach((option) => {
+      if (this.validator.IsInBoard(option.column(column), option.row(row))) {
+        if (this.gameboard[option.row(row)][option.column(column)] == 0) {
+          this.Move(column, row, option.column(column), option.row(row));
+          canMove = true;
+        }
       }
-    }
-    return false;
+    });
+    return canMove;
   }
 
   TryMove(number) {
-    //change to foreach
     for (let row = 0; row < this.gameboard.length; row++) {
       for (let column = 0; column < this.gameboard.length; column++) {
         if (this.gameboard[row][column] == number) {
@@ -49,6 +33,5 @@ export default class BoardController {
         }
       }
     }
-    return false;
   }
 }

@@ -1,5 +1,8 @@
-import BoardController from "./BoardController.js";
-import BoardGenarator from "./BoardGenarator.js";
+import BoardController from "./Controler/BoardController.js";
+import BoardGenarator from "./Controler/BoardGenarator.js";
+import MovmentValidator from "./Controler/MovmentValidator.js";
+import movmentOptions from "./Controler/MovmentOptions.js";
+import BoardMaker from "./View/boradMaker.js";
 
 const testGameBoard = [
   [1, 2, 3],
@@ -8,26 +11,28 @@ const testGameBoard = [
 ];
 
 const boardGenarator = new BoardGenarator();
+let board = boardGenarator.GenarateBoard(3, 3);
+const validator = new MovmentValidator(board, movmentOptions);
 const testingBoardController = new BoardController(
-  boardGenarator.GenarateBoard(3, 3)
+  board,
+  validator,
+  movmentOptions
 );
 
 console.log(testingBoardController.gameboard);
 
-const buttons = [
-  document.getElementById("1"),
-  document.getElementById("2"),
-  document.getElementById("3"),
-  document.getElementById("4"),
-  document.getElementById("5"),
-  document.getElementById("6"),
-  document.getElementById("7"),
-  document.getElementById("8"),
-];
+const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8].Map((element) => {
+  let card = document.createElement("button");
+  let text = document.createTextNode(`${element}`);
+  card.appendChild(text);
+  card.setAttribute("id", `${element}`);
+});
+const boardMaker = new BoardMaker(cards);
+boardMaker.BuildBoard();
 
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", () => {
     console.log(testingBoardController.TryMove(i + 1));
-    console.log(testingBoardController.gameboard);
+    console.log(board);
   });
 }
