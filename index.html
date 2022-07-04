@@ -11,15 +11,18 @@
     <h1>Get Schwifty</h1>
 
     <div id="board-container"></div>
-    <div>
-      <div class="input-field">
-        <label for="width-selector">Width:</label>
-        <input id="width-selector" type="number" />
+    <div class="size-changing">
+      <div class="inputs">
+        <div class="input-field">
+          <label for="width-input">Width:</label>
+          <input id="width-input" type="number" />
+        </div>
+        <div class="input-field">
+          <label for="height-input">Height: </label>
+          <input id="height-input" type="number" />
+        </div>
       </div>
-      <div class="input-field">
-        <label for="height-selector">Height: </label>
-        <input id="height-selector" type="number" />
-      </div>
+      <button id="size-change-submit">Genarate</button>
     </div>
 
     <script type="module" src="./index.js"></script>
