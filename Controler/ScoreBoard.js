@@ -4,6 +4,7 @@ export default class ScoreBoard {
     this.highestScores = this.saver.GetObject("scores") || [];
     this.view = view;
     this.maxScoresStored = maxScoresStored;
+    this.view.displayScoreboard(this.highestScores);
   }
 
   IsTopScore(newWin) {
@@ -20,7 +21,7 @@ export default class ScoreBoard {
 
   AddNewScore(newWin) {
     if (this.IsTopScore(newWin)) {
-      newWin.name = this.view.getPlayerName() || "anonimus";
+      newWin.name = this.view.getPlayerName() || "Guest";
       this.highestScores.push(newWin);
       this.highestScores.sort((a, b) => a.moveCount - b.moveCount);
       if (this.highestScores.length > this.maxScoresStored) {
@@ -28,6 +29,6 @@ export default class ScoreBoard {
       }
     }
     this.saver.SaveObject("scores", this.highestScores);
-    console.log(this.highestScores);
+    this.view.displayScoreboard(this.highestScores);
   }
 }

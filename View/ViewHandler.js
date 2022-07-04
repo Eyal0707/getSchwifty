@@ -55,6 +55,19 @@ export default class ViewHandler {
   }
 
   getPlayerName() {
-    return window.prompt("enter name for new high score");
+    return document.getElementById("name-input").value;
+  }
+
+  displayScoreboard(scoreboard) {
+    const scoreHolder = document.getElementById("scoreboard");
+    scoreHolder.innerHTML = "<h2>Scoreboard</h2>";
+    scoreboard.forEach((element) => {
+      let score = document.createElement("h3");
+      let text = document.createTextNode(
+        `${element.name}|${element.moveCount}|${element.width}x${element.height}`
+      );
+      score.appendChild(text);
+      scoreHolder.appendChild(score);
+    });
   }
 }

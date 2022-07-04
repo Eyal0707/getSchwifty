@@ -19,7 +19,6 @@ const viewHandler = new ViewHandler(
   document.getElementById("board-container"),
   document.getElementById("alerter")
 );
-
 //controles
 const boardGenarator = new BoardGenarator();
 const validator = new MovmentValidator(movmentOptions);
