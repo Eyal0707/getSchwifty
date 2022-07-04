@@ -53,4 +53,8 @@ export default class ViewHandler {
     this.container.style.borderWidth = "50px";
     this.alerter.innerHTML = "You Won! click Regenerate To Continue";
   }
+
+  getPlayerName() {
+    return window.prompt("enter name for new high score");
+  }
 }

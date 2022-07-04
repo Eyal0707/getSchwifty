@@ -1,11 +1,13 @@
 export default class MainController {
-  constructor(boardController, BoardGenarator, WinHandler, view) {
+  constructor(boardController, BoardGenarator, WinHandler, view, scoreBoard) {
     this.boardController = boardController;
     this.BoardGenarator = BoardGenarator;
     this.WinHandler = WinHandler;
     this.view = view;
+    this.scoreBoard = scoreBoard;
     this.board;
     this.gameData;
+    this.hasWon;
     this.#InitiateBoard(3, 3);
   }
 
@@ -49,17 +51,38 @@ export default class MainController {
       this.board = this.BoardGenarator.GenerateBoard(width, height);
       const cards = this.view.BuildBoard(width, height, this.board);
       this.#AddEventListenersForCards(cards);
+      this.gameData = new GameData(width, height);
+      this.hasWon = false;
     }
   }
 
   MoveCard(number) {
-    if (!this.boardController.TryMove(this.board, number)) {
-      this.view.MoveFailed(this.board, number);
-    } else {
-      this.view.UpdateBoard(this.board);
-      if (this.WinHandler.IsWin(this.board)) {
-        this.view.Win();
+    if (!this.hasWon) {
+      if (!this.boardController.TryMove(this.board, number)) {
+        this.view.MoveFailed(this.board, number);
+      } else {
+        this.view.UpdateBoard(this.board);
+        this.gameData.MoveMade();
+        if (this.WinHandler.IsWin(this.board)) {
+          this.view.Win();
+          this.hasWon = true;
+          this.scoreBoard.AddNewScore(this.gameData);
+        }
       }
     }
+  }
+}
+
+class GameData {
+  constructor(width, height) {
+    this.moveCount = 0;
+    this.width = width;
+    this.height = height;
+    this.date = Date.now();
+    this.name;
+  }
+
+  MoveMade() {
+    this.moveCount++;
   }
 }
