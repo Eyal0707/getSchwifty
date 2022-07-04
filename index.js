@@ -4,8 +4,11 @@ import MovmentValidator from "./Controler/MovmentValidator.js";
 import movmentOptions from "./Controler/MovmentOptions.js";
 import BoardMaker from "./View/boradMaker.js";
 
+const boardWidth = 10;
+const boardHeight = 5;
+
 const boardGenarator = new BoardGenarator();
-let board = boardGenarator.GenarateBoard(3, 3);
+let board = boardGenarator.GenarateBoard(boardWidth, boardHeight);
 const validator = new MovmentValidator(board, movmentOptions);
 const testingBoardController = new BoardController(
   board,
@@ -15,17 +18,18 @@ const testingBoardController = new BoardController(
 
 console.log(testingBoardController.gameboard);
 
-const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8].map((element) => {
+var cards = [];
+for (let i = 0; i < boardWidth * boardHeight; i++) {
   let card = document.createElement("button");
-  card.setAttribute("id", `${element}`);
+  card.setAttribute("id", `${i}`);
   card.className += "card";
-  if (element == 0) {
-    card.className += " emptySpace";
+  if (i == 0) {
+    card.style.opacity = "0";
   }
-  let text = document.createTextNode(`${element}`);
+  let text = document.createTextNode(`${i}`);
   card.appendChild(text);
-  return card;
-});
+  cards.push(card);
+}
 
 const boardMaker = new BoardMaker(cards);
 boardMaker.BuildBoard(board);

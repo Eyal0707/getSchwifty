@@ -1,11 +1,21 @@
-.emptySpace{
-    opacity: 0;
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: yellowgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
 }
 
 #board-container{
     width: 500px;
     height: 500px;
-    border: solid 2px red;
+    border: solid 2px orangered;
     background-color: black;
 
 }
@@ -13,6 +23,5 @@
 .card{
     background-color: beige;
     border: grey;
-    
 
 }
