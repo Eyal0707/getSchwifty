@@ -12,16 +12,4 @@ export default class MovmentValidator {
     }
     return false;
   }
-
-  CanMove(column, row) {
-    let canMove = false;
-    this.movmentOptions.forEach((option) => {
-      if (this.IsInBoard(option.column(column), option.row(row))) {
-        if (this.board[option.row(row)][option.column(column)] == 0) {
-          canMove = true;
-        }
-      }
-    });
-    return canMove;
-  }
 }

@@ -33,5 +33,6 @@ export default class BoardController {
         }
       }
     }
+    return false;
   }
 }
