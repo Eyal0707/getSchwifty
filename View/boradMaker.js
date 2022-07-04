@@ -1,7 +1,6 @@
 export default class BoardMaker {
-  constructor(cards) {
-    this.cards = cards;
-    this.container = document.getElementById("board-container");
+  constructor(container) {
+    this.container = container;
   }
 
   #StyleCard(width, height, card) {
@@ -12,25 +11,29 @@ export default class BoardMaker {
     return card;
   }
 
-  BuildBoard(board) {
+  BuildBoard(board, cards) {
     board.forEach((row) => {
       row.forEach((element) => {
-        this.cards[element] = this.#StyleCard(
+        cards[element] = this.#StyleCard(
           row.length,
           board.length,
-          this.cards[element]
+          cards[element]
         );
-        this.container.appendChild(this.cards[element]);
+        this.container.appendChild(cards[element]);
       });
     });
   }
 
-  UpdateBoard(board) {
+  UpdateBoard(board, cards) {
     this.container.innerHTML = "";
     board.forEach((row) => {
       row.forEach((element) => {
-        this.container.appendChild(this.cards[element]);
+        this.container.appendChild(cards[element]);
       });
     });
+  }
+
+  moveFailed(numnber) {
+    console.log(number);
   }
 }

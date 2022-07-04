@@ -1,42 +1,27 @@
-import BoardController from "./Controler/BoardController.js";
+//controls
+import BoardController from "./Controler/Movment/BoardController.js";
 import BoardGenarator from "./Controler/BoardGenarator.js";
-import MovmentValidator from "./Controler/MovmentValidator.js";
-import movmentOptions from "./Controler/MovmentOptions.js";
+import MovmentValidator from "./Controler/Movment/MovmentValidator.js";
+import movmentOptions from "./Controler/Movment/MovmentOptions.js";
+import WinDetector from "./Controler/WinDetector.js";
+import MainController from "./Controler/MainController.js";
+
+//UI
 import BoardMaker from "./View/boradMaker.js";
+import ViewHandler from "./View/ViewHandler.js";
 
-const boardWidth = 10;
-const boardHeight = 5;
+//UI
+const boardMaker = new BoardMaker(document.getElementById("board-container"));
+const viewHandler = new ViewHandler(boardMaker);
 
+//controles
 const boardGenarator = new BoardGenarator();
-let board = boardGenarator.GenarateBoard(boardWidth, boardHeight);
-const validator = new MovmentValidator(board, movmentOptions);
-const testingBoardController = new BoardController(
-  board,
-  validator,
-  movmentOptions
+const validator = new MovmentValidator(movmentOptions);
+const boardController = new BoardController(validator, movmentOptions);
+const winDetector = new WinDetector();
+const mainController = new MainController(
+  boardController,
+  boardGenarator,
+  winDetector,
+  viewHandler
 );
-
-console.log(testingBoardController.gameboard);
-
-var cards = [];
-for (let i = 0; i < boardWidth * boardHeight; i++) {
-  let card = document.createElement("button");
-  card.setAttribute("id", `${i}`);
-  card.className += "card";
-  if (i == 0) {
-    card.style.opacity = "0";
-  }
-  let text = document.createTextNode(`${i}`);
-  card.appendChild(text);
-  cards.push(card);
-}
-
-const boardMaker = new BoardMaker(cards);
-boardMaker.BuildBoard(board);
-
-for (let i = 0; i < cards.length; i++) {
-  cards[i].addEventListener("click", () => {
-    testingBoardController.TryMove(i);
-    boardMaker.UpdateBoard(board);
-  });
-}
